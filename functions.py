@@ -40,40 +40,38 @@ def delete_items(idlist,db_name):
 
 
 
-def selection(inputx,db_name,table):
+def selection(inputx,db_name,table, userNames):
  sql_connect=sqlite3.connect(db_name)
  cursor_sql=sql_connect.cursor()
  sql_connect.row_factory = sqlite3.Row
  cursor =sql_connect.execute(f'select * from {table}')
  row = cursor.fetchone()
  names =row.keys()
- cat=names[0]
- i=names[1]
- n=names[2]
  
- cursor_sql.execute(f"SELECT {cat},{i},{n} FROM {table} WHERE {cat} OR {i} OR {n}=(?)",(inputx,))
+ category,product_id,product_name = names
+ 
+ cursor_sql.execute(f"SELECT {category},{product_id},{product_name} FROM {table} WHERE {category} OR {product_id} OR {product_name}=(?)",(inputx,))
  items=cursor_sql.fetchall()
- 
 
  for row in items:
 
       if inputx == row[0]:
         
-        cursor_sql.execute(f"SELECT * FROM {table} WHERE {cat}=(?)",(inputx,))
+        cursor_sql.execute(f"SELECT * FROM {table} WHERE {category}=(?)",(inputx,))
         items=cursor_sql.fetchall()
         print(items)
         break
       
       elif inputx == row[1]:
       
-        cursor_sql.execute(f"SELECT * FROM {table} WHERE {i}=(?)",(inputx,))
+        cursor_sql.execute(f"SELECT * FROM {table} WHERE {product_id}=(?)",(inputx,))
         items=cursor_sql.fetchall()
         print(items)
         break
       
       elif inputx == row[2]:
 
-        cursor_sql.execute(f"SELECT * FROM {table} WHERE {n}=(?)",(inputx,))
+        cursor_sql.execute(f"SELECT * FROM {table} WHERE {product_name}=(?)",(inputx,))
         items=cursor_sql.fetchall()
         print(items)
         break    
