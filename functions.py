@@ -47,33 +47,33 @@ def selection(inputx,db_name,table):
  cursor =sql_connect.execute(f'select * from {table}')
  row = cursor.fetchone()
  names =row.keys()
- colums_one=(row[item_table["item_one"]])
- colums_two=(row[item_table["item_two"]])
- colums_three=(row[item_table["item_three"]])
+ cat=names[0]
+ i=names[1]
+ n=names[2]
  
- cursor_sql.execute(f"SELECT {names} FROM {table} WHERE {colums_one} OR {colums_two} OR {colums_three} =(?)",(inputx,))
+ cursor_sql.execute(f"SELECT {cat},{i},{n} FROM {table} WHERE {cat} OR {i} OR {n}=(?)",(inputx,))
  items=cursor_sql.fetchall()
  
 
  for row in items:
 
       if inputx == row[0]:
-        colums=(row[item_table["item_one"]])
-        cursor_sql.execute(f"SELECT * FROM {table} WHERE {colums}=(?)",(inputx,))
+        
+        cursor_sql.execute(f"SELECT * FROM {table} WHERE {cat}=(?)",(inputx,))
         items=cursor_sql.fetchall()
         print(items)
         break
       
       elif inputx == row[1]:
-        colums=(row[item_table["item_two"]])
-        cursor_sql.execute(f"SELECT * FROM {table} WHERE {colums}=(?)",(inputx,))
+      
+        cursor_sql.execute(f"SELECT * FROM {table} WHERE {i}=(?)",(inputx,))
         items=cursor_sql.fetchall()
         print(items)
         break
       
       elif inputx == row[2]:
-        colums=(row[item_table["item_three"]])
-        cursor_sql.execute(f"SELECT * FROM {table} WHERE {colums}=(?)",(inputx,))
+
+        cursor_sql.execute(f"SELECT * FROM {table} WHERE {n}=(?)",(inputx,))
         items=cursor_sql.fetchall()
         print(items)
         break    
