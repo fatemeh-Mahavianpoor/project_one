@@ -1,22 +1,18 @@
 
 db_names={
     "product":"product_info.db",
-    "employer":"employer_info.db"
+    "user":"user_info.db",
+    "storage":"storage_info.db"
 }
 
 
 
 table_names={
     "table1":"products",
-    "table2":"employers"
+    "table2":"employers",
+    "table3":"storage"
 }
 
-item_table={
-    
-    "item_one":"category",
-    "item_two":"product_id",
-    "item_three":"product_name"
-}
 
 def qustion_mark_generator(count):
   

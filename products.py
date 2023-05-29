@@ -51,6 +51,7 @@ class Products:
                 functions.show_all(db_names['product'],table_names['table1'])
                elif show_all_products.capitalize()=='N':
                     filter_item=input("What filter do you want to search based on? category | id | name: ")
+                    
                     if filter_item.capitalize()=='Category':
                          category_name=input('Enter product_category:')
                          category=category_name
@@ -68,8 +69,6 @@ class Products:
 
 
   
-p1= Products()
-p1.show_product_list()
+# p1= Products()
+# p1.show_product_list()
 
-
-# functions.row(db_names['product'],table_names['table1'])
