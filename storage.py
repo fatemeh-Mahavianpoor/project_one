@@ -62,14 +62,51 @@ class Storage:
 
                     store_name=input("write your storege_name: ")
                     store=store_name
-                    functions.selection(store,db_names["store"],table_names["table4"])           
+                    selection(store)           
 
 
 
 
 
+
+# omadam quary selection ro inja faghat bra hamin table neveshtam baz ham hamon error ro dad
+
+def selection(inputx):
+ sql_connect=sqlite3.connect("storage.db")
+ cursor_sql=sql_connect.cursor()
+ 
+ cursor_sql.execute(f"SELECT storage_name,warehouse_products,location FROM test WHERE storage_name OR warehouse_products OR location=(?)",(inputx,))
+ items=cursor_sql.fetchall()
+ 
+
+ for row in items:
+
+    if inputx == row[0]:
+      
+      cursor_sql.execute(f"SELECT * FROM test WHERE storage_name=(?)",(inputx,))
+      items=cursor_sql.fetchall()
+      print(items)
+      break
+    
+    elif inputx == row[1]:
+    
+      cursor_sql.execute(f"SELECT * FROM test WHERE warehouse_products=(?)",(inputx,))
+      items=cursor_sql.fetchall()
+      print(items)
+      break
+    
+    elif inputx == row[2]:
+
+      cursor_sql.execute(f"SELECT * FROM test WHERE location=(?)",(inputx,))
+      items=cursor_sql.fetchall()
+      print(items)
+      break    
+
+ sql_connect.commit()
+ sql_connect.close()
 
 
 
 p1=Storage()
 p1.show_list()
+
