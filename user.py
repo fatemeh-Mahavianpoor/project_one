@@ -85,7 +85,7 @@ class user_info:
   
 
 p1=user_info()
-p1.show_user_list()
+p1.add_user()
 
 
 

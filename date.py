@@ -1,12 +1,9 @@
 import datetime
-import csv
-from tempfile import NamedTemporaryFile
-import shutil
+import sqlite3
+import functions
+from constants.constant import db_names,table_names
 
-tempfile = NamedTemporaryFile('w+t', newline='', delete=False)
-employer_file='employer_date.csv'
-product_enter_file='product_enter_date.csv'
-product_exit_file='product_exit_date.csv'
+
 
 
 time_module= datetime.datetime.now()
@@ -14,121 +11,136 @@ time=(time_module.strftime("%X"))
 date=(time_module.strftime("%x"))
 
 class Date:
+
+
+    def enter_product(self):
+
+        id=input('Enter product_id:')
+
+        sql_connect=sqlite3.connect(db_names["product"])
+        cursor_sql=sql_connect.cursor()
+       
+        cursor_sql.execute("SELECT * FROM products ")
+        items=cursor_sql.fetchall() 
+        
+        for item in items:
+                product_id=int(id)
+                if item[1]==product_id:
+                    
+                    sql_connect=sqlite3.connect(db_names["date"])
+                    cursor_sql=sql_connect.cursor()
+                    cursor_sql.execute("SELECT * FROM product_enter_date ")
+                    items=cursor_sql.fetchall()
+
+                    for row in items:
+                        if date == row[1]:
+                            print("You're product have already entered!") 
+                            break
+                    else:
+                        list=[id,date,item[2],time]
+                        functions.add_many(list,db_names["date"],table_names["table5"],len(list))
+
+    def exit_product(self):
+         
+        id=input('Enter product_id:')
+
+        sql_connect=sqlite3.connect(db_names["product"])
+        cursor_sql=sql_connect.cursor()
+       
+        cursor_sql.execute("SELECT * FROM products ")
+        items=cursor_sql.fetchall() 
+        
+        for item in items:
+                product_id=int(id)
+                if item[1]==product_id:
+                    
+                    sql_connect=sqlite3.connect(db_names["date"])
+                    cursor_sql=sql_connect.cursor()
+                    cursor_sql.execute("SELECT * FROM product_exit_date ")
+                    items=cursor_sql.fetchall()
+
+                    for row in items:
+                        if date == row[1]:
+                            print("You're product have already entered!") 
+                            break
+                    else:
+                        list=[id,date,item[2],time]
+                        functions.add_many(list,db_names["date"],table_names["table7"],len(list))
+                                  
+    def enter_user(self):
+        
+        
+        id=input('Enter product_id:')
+
+        sql_connect=sqlite3.connect(db_names["user"])
+        cursor_sql=sql_connect.cursor()
+       
+        cursor_sql.execute("SELECT * FROM employers ")
+        table=cursor_sql.fetchall() 
+        
+        for item in table:
+                product_id=int(id)
+                if item[1]==product_id:
+
+                    
+                    sql_connect=sqlite3.connect(db_names["date"])
+                    cursor_sql=sql_connect.cursor()
+                    cursor_sql.execute("SELECT * FROM user_date ")
+                    items=cursor_sql.fetchall()
+
+                    for row in items:
+                        if  date == row[0] and item[1]==product_id:
+                            print("You're employer have already entered!")
+                            break
+                else:
+                    list=[date,id,item[2],item[3],time,'']
+                    functions.add_many(list,db_names["date"],table_names["table6"],len(list))
+                    break         
+        
+                                    
    
 
-   def employer_enter(self):
+    def exit_user(self):
+            
+        id=input('Enter product_id:')
 
-        with open(employer_file,'r+',newline='') as f:
-            writer=csv.writer(f)
-            writer.writerow(['Date','Id','first_name','last_name','Enter_time','Exit_time'])
-
-        user_id_input=input("id: ")
-
-        with open(employer_file,'r') as f:
-            reader=csv.reader(f)
-            is_user_logged_in = False
+        sql_connect=sqlite3.connect(db_names["user"])
+        cursor_sql=sql_connect.cursor()
+       
+        cursor_sql.execute("SELECT * FROM employers ")
+        table=cursor_sql.fetchall() 
         
-            for row in reader:
-                if user_id_input==row[1]:
-                    if date==row[0]:
-                        print('You have already entered!')
-                        is_user_logged_in = True
+        for item in table:
+                product_id=int(id)
+                if item[1]==product_id:
 
-        if(not is_user_logged_in):    
+                    
+                    sql_connect=sqlite3.connect(db_names["date"])
+                    cursor_sql=sql_connect.cursor()
+                    cursor_sql.execute("SELECT * FROM user_date ")
+                    items=cursor_sql.fetchall()
 
-            with open('user.csv','r') as file:
-                user_info=csv.reader(file)
-
-                for info in user_info:
-                    if user_id_input==info[0]:
-                        with open(employer_file,'a+',newline='') as f:
-                         write=csv.writer(f)
-                         write.writerow([date,user_id_input,info[1],info[2],time])
-                         print('successfully enterd!')
+                    for row in items:
+                        if  date == row[0] and item[1]==product_id:
+                            data = (time,product_id)
+                            sql_update_query =(f"""UPDATE user_date SET Exit_time =''
+                              WHERE user_id ={product_id} """)
+                            cursor_sql.execute(sql_update_query, data)
+                            break
                         
-   def employer_exit(self):
+# li=[(1,),(2,),(3,),(4,)]                            
+# functions.delete_items("23456",db_names["date"],table_names["table6"])                        
 
-    user_id_input=input('id: ')
+#  Update TABLE_NAME set name = '',id = cast(NULLIF(id,'') as NVARCHAR)
 
-    with open(employer_file,'r+',newline='') as f,tempfile:
-        reader=csv.reader(f)
-        write = csv.writer(tempfile, delimiter=',', quotechar='"')
-        
-        for row in reader:
-            if row[1]==user_id_input:
-             row.append(time)    
-             write.writerow(row)
-            else:    
-             write.writerow(row)  
+                                 
 
-
-        
-
-    shutil.move(tempfile.name, employer_file)               
-
-   def product_enter(self):
-      
-        with open(product_enter_file,'r+',newline='') as enterfile:
-            writer=csv.writer(enterfile)
-            writer.writerow(['Id','product_name','Date','time'])
-
-        product_id_input=input("id: ")
-
-        with open(product_enter_file,'r')as enterfile:
-            reader=csv.reader(enterfile)
-            is_product_enter=False
-
-            for row in reader:
-             if product_id_input == row[0]:
-                if date == row[2]:
-                    print("You're product have already entered!")
-                    is_product_enter=True
-
-        if(not is_product_enter):    
-
-            with open('product.csv','r') as file:
-             product_info=csv.reader(file)
-
-             for info in product_info:
-                if product_id_input==info[0]:
-                    with open(product_enter_file,'a+',newline='') as enterfile:
-                        write=csv.writer(enterfile)
-                        write.writerow([product_id_input,info[1],date,time])
-                        print('successfully enterd!')
-
-   def product_exit(self):
-      
-        with open(product_exit_file,'r+',newline='') as exitfile:
-            writer=csv.writer(exitfile)
-            writer.writerow(['Id','product_name','Date','time'])
-
-        product_id_input=input("id: ")
-
-        with open(product_exit_file,'r')as exitfile:
-            reader=csv.reader(exitfile)
-            is_product_enter=False
-
-            for row in reader:
-             if product_id_input == row[0]:
-                if date == row[2]:
-                    print("You're product have already entered!")
-                    is_product_enter=True
-
-        if(not is_product_enter):    
-
-            with open('product.csv','r') as file:
-             product_info=csv.reader(file)
-
-             for info in product_info:
-                if product_id_input==info[0]:
-                    with open(product_exit_file,'a+',newline='') as exitfile:
-                        write=csv.writer(exitfile)
-                        write.writerow([product_id_input,info[1],date,time])
-                        print('successfully enterd!')
+product=Date()
+product.exit_user()
 
 
 
 
 
-# employer=Date()
-# employer.product_enter()   
+
+
