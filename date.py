@@ -53,8 +53,9 @@ class Date:
        
         cursor_sql.execute("SELECT * FROM products ")
         table=cursor_sql.fetchall() 
-        
+        is_in=False
         for item in table:
+                is_in=False
                 product_id=int(id)
                 if item[1]==product_id:
                     
@@ -64,14 +65,18 @@ class Date:
                     items=cursor_sql.fetchall()
 
                     for row in items:
-                        if date == row[1] and item[1]==product_id :
-                            print("You're product have already entered!") 
-                            break
-                    else:
-                        list=[id,date,item[2],timer]
-                        
-                        functions.add_many(list,db_names["date"],table_names["table7"],len(list))
-                        break
+                        if date == row[1] and item[1]==product_id:
+                             is_in=True
+                            
+                    if is_in:
+                        print("You're product have already entered!")
+                
+                
+                elif(not is_in):
+                    list=[id,date,item[2],timer]
+                    
+                    functions.add_many(list,db_names["date"],table_names["table7"],len(list))
+                    break
                                   
     def enter_user(self):
         
@@ -135,15 +140,15 @@ def update(list,id,db,table):
 
 
                         
-# li=[(2,),(3,),(4,)]                            
-# functions.delete_items(li,db_names["date"],table_names["table5"])                        
+# l=[(1,),(2,)]                            
+# functions.delete_items(l,db_names["date"],table_names["table5"])                        
 
 
 
                                  
 
 product=Date()
-product.exit_product()
+product.enter_product()
 
 
 
