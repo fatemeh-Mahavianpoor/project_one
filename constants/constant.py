@@ -4,7 +4,8 @@ db_names={
     "user":"user_info.db",
     "storage":"storage_info.db",
     "store":"storage.db",
-    "date":"date.db"
+    "date":"date.db",
+    "staff":"staff.db"
 }
 
 
@@ -17,7 +18,8 @@ table_names={
     "table4":"test",
     "table5":"product_enter_date",
     "table6":"user_date",
-    "table7":"product_exit_date"
+    "table7":"product_exit_date",
+    "table8":"salary"
     
 }
 

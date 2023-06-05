@@ -1,6 +1,7 @@
 import sqlite3
 import functions
 from constants.constant import db_names,table_names
+import staff
 
 # sql_connect=sqlite3.connect(db_names["employer"])
 # cursor_sql=sql_connect.cursor()
@@ -37,7 +38,7 @@ class user_info:
       last_name=input('Enter last_name:')
       role=input('Enter role:')
       personal_code=input('Enter personal_code:')
-      salary=input('Enter salary:')
+      salary=input('Enter daily_salary:')
       
       
       cursor_sql.execute("SELECT * FROM employers ")
@@ -55,7 +56,7 @@ class user_info:
             print("This id is already exsict")
             
       else:
-            list=[job_position,user_id,first_name,last_name,personal_code,role,salary]
+            list=[job_position,user_id,first_name,last_name,role,personal_code,salary]
             functions.add_many(list,db_names["user"],table_names["table2"],len(list))
 
      def show_user_list(self):       
@@ -80,7 +81,7 @@ class user_info:
                          pro_name=name.capitalize()
                          functions.selection(pro_name,db_names["user"],table_names["table2"])
 
-
+     def enter_salary(self):
 
   
 

@@ -1,66 +1,73 @@
-import csv
+import sqlite3
+import time
+import functions
+from constants.constant import db_names,table_names
 
-employer_file='employer_date.csv'
-salary_file='salary.csv'
-user_file='user.csv'
 
-class Staff:
+# sql_connect=sqlite3.connect(db_names["staff"])
+# cursor_sql=sql_connect.cursor()
+# cursor_sql.execute(f'''CREATE TABLE {table_names["table8"]}
+                    
+#                     (month text,
+#                      employer_id integer,
+#                      personal_code integer,
+#                      salary integer)''' )
+
+# sql_connect.commit()
+# sql_connect.close()
+
+# sql_connect=sqlite3.connect(db_names["staff"])
+# cursor_sql=sql_connect.cursor()
+# cursor_sql.execute(f'''DROP TABLE {table_names["table8"]}''')
+
+# sql_connect.commit()
+# sql_connect.close()
+
+month = time.strftime("%m")
+monthly=month
+                
     
-    def calculate_salary(self):
+def calculate_salary():
 
-      with open(salary_file,'r+',newline='') as salary_csv:
-         write=csv.DictWriter(salary_csv, fieldnames=["personal code","salary"])
-         write.writeheader()
+      sql_connect=sqlite3.connect(db_names["date"])
+      cursor_sql=sql_connect.cursor()
+      cursor_sql.execute("SELECT * FROM user_date ")
+      items=cursor_sql.fetchall()
 
       user_id=input('id: ')
+      id=int(user_id)
 
       person_day=0
-      with open(employer_file,'r',newline='') as filecsv:
-         reader=csv.reader(filecsv)
 
-         for row in reader:
-            if user_id==row[1]:
-               person_day+=1
+      for row in items:
+         if id == row[1]:
+            person_day+=1
+      
+      
+      sql_connect=sqlite3.connect(db_names["user"])
+      cursor_sql=sql_connect.cursor()
+      cursor_sql.execute(f"SELECT * FROM employers WHERE employer_id={id} ")
+      table=cursor_sql.fetchall()
 
-      daily_salary=5000
-      present_day=person_day
+      for num in table:
 
-      salary=(daily_salary * present_day)
+            daily_salary=num[6]
+            present_day=person_day
+            salary=daily_salary * present_day
 
-   
-      with open(user_file,'r+',newline='') as user_info:
-         reader= csv.reader(user_info)
-         for row in reader:
-               if user_id == row[0]:
-                  Personal_code = row[1]
+      sql_connect=sqlite3.connect(db_names["staff"])
+      cursor_sql=sql_connect.cursor()
+      cursor_sql.execute(F"SELECT * FROM salary  WHERE employer_id={id} AND month <> {month}")
+      cursor_sql.fetchall()
 
-                  with open(salary_file,'r') as read:
-                     reader=csv.reader(read)
+      li=[monthly,id,num[5],salary]
+      functions.add_many(li,db_names["staff"],table_names["table8"],len(li))
 
-                     is_exsict=False
 
-                     for row in reader:
-                        if Personal_code==row[0]: 
-                           print('This id has already exisct!')
-                           is_exsict=True
-                     
-                     if( not is_exsict):   
-                           with open(salary_file,"a+",newline='') as write:
-                              writer=csv.writer(write)
-                              writer.writerow([Personal_code,salary])
           
-    def user_see_salary(self):
 
-      user_input =input("enter your personal code: ")
 
-      with open(salary_file,'r') as read:
-         reader=csv.reader(read)
-         for row in reader:
-            if user_input == row[0]:
-                  print(row[1])
-
-            
-
+calculate_salary()
 
 
 
