@@ -57,18 +57,18 @@ def calculate_salary():
 
       sql_connect=sqlite3.connect(db_names["staff"])
       cursor_sql=sql_connect.cursor()
-      cursor_sql.execute(F"SELECT * FROM salary  WHERE employer_id={id} AND month <> {month}")
-      cursor_sql.fetchall()
+      cursor_sql.execute(F"SELECT * FROM salary  WHERE employer_id={id}")
+      item=cursor_sql.fetchall()
 
-      li=[monthly,id,num[5],salary]
-      functions.add_many(li,db_names["staff"],table_names["table8"],len(li))
+      for row in item:
+     
+            if monthly == row[0]:
+                  break
+      else:
+            li=[monthly,id,num[5],salary]
+            functions.add_many(li,db_names["staff"],table_names["table8"],len(li))
 
-
-          
+              
 
 
 calculate_salary()
-
-
-
-
