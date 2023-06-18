@@ -81,8 +81,7 @@ class user_info:
                          pro_name=name.capitalize()
                          functions.selection(pro_name,db_names["user"],table_names["table2"])
 
-     def enter_salary(self):
-
+     
   
 
 p1=user_info()

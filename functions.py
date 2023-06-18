@@ -51,7 +51,7 @@ def selection(inputx,db_name,table):
  cloumn_two=names[1]
  cloumn_three=names[2]
  
- cursor_sql.execute(f"SELECT {cloumn_one},{cloumn_two},{cloumn_three} FROM {table} WHERE {cloumn_one} OR {cloumn_two} OR {cloumn_three}=(?)",(inputx,))
+ cursor_sql.execute(f"SELECT {cloumn_one},{cloumn_two},{cloumn_three} FROM {table} WHERE {cloumn_one}=(?) OR {cloumn_two}=(?) OR {cloumn_three}=(?)",(inputx,inputx,inputx))
  items=cursor_sql.fetchall()
  
 

@@ -52,43 +52,7 @@ class storage:
             
       else:
             list=[storage_name,warehouse_products,location,storage_space]
-            functions.add_many(list,db_names["storage"],table_names["table4"],len(list))
-
-
-     def show_product_list(self):       
-            
-
-               show_all_products=input("Do you want to see the whole list of storage?")
-               if show_all_products.capitalize()=='Y':
-                functions.show_all(db_names["storage"],table_names["table3"])
-               elif show_all_products.capitalize()=='N':
-                    filter_item=input("What filter do you want to search based on?  name: ")
-                    
-                    # if filter_item.capitalize()=='Location':
-                    #      category_name=input('Enter location:')
-                    #      category=(category_name)
-                    #      functions.selection(category,(db_names["storage"]),(table_names["table4"]))
-                         
-                    # elif filter_item=='id':
-                    #      id=input('Enter product_id:')
-                    #      id_num=int(id)
-                    #      functions.selection(id_num,db_names['product'],table_names['table1'])
-                    
-                    if filter_item.capitalize()=='Name':
-                         location_in=input('Enter your name:')
-                         loc=location_in.capitalize()
-                         functions.selection(loc,db_names["storage"],table_names["table4"])
-
-
-
-
-
-
-
-
-
-
-
+            functions.add_many(list,db_names["storage"],table_names["table3"],len(list))
 
 
 
@@ -103,23 +67,25 @@ class storage:
                     
                     if filter_item.capitalize()=='Name':
                          nam=input('Enter your Name:')
-                         n=nam
-                         functions.selection(n,db_names["storage"],table_names["table4"])
+                         n=nam.capitalize()
+                         functions.selection(n,db_names["storage"],table_names["table3"])
                     
                     elif filter_item.capitalize()=='Location':
                          location_in=input('Enter your location:')
                          loc=location_in.capitalize()
-                         functions.selection(loc,db_names["storage"],table_names["table4"])
+                         functions.selection(loc,db_names["storage"],table_names["table3"])
                    
                     elif filter_item.capitalize()=='Warehouse_products':
                          product_name=input('Enter the name of products:')
                          pro_name=product_name.capitalize()
-                         functions.selection(pro_name,db_names["storage"],table_names["table4"])
+                         functions.selection(pro_name,db_names["storage"],table_names["table3"])
                     
 
   
 
 
-p1=storage()
-p1.show_storage_list()
+# p1=storage()
+# p1.show_storage_list()
+
+
 
