@@ -19,9 +19,9 @@ def show_all(db_name,table):
  cursor_sql=sql_connect.cursor()
  
  cursor_sql.execute(f"SELECT rowid, * FROM {table}")
- items=cursor_sql.fetchall()
+ table_list=cursor_sql.fetchall()
 
- for item in items:
+ for item in table_list:
   print(item)
 
  sql_connect.commit()
@@ -40,7 +40,7 @@ def delete_items(idlist,db_name,table):
 
 
 
-def selection(inputx,db_name,table):
+def selection(data,db_name,table):
  sql_connect=sqlite3.connect(db_name)
  cursor_sql=sql_connect.cursor()
  sql_connect.row_factory = sqlite3.Row
@@ -51,31 +51,31 @@ def selection(inputx,db_name,table):
  cloumn_two=names[1]
  cloumn_three=names[2]
  
- cursor_sql.execute(f"SELECT {cloumn_one},{cloumn_two},{cloumn_three} FROM {table} WHERE {cloumn_one}=(?) OR {cloumn_two}=(?) OR {cloumn_three}=(?)",(inputx,inputx,inputx))
- items=cursor_sql.fetchall()
+ cursor_sql.execute(f"SELECT {cloumn_one},{cloumn_two},{cloumn_three} FROM {table} WHERE {cloumn_one}=(?) OR {cloumn_two}=(?) OR {cloumn_three}=(?)",(data,data,data))
+ table_list=cursor_sql.fetchall()
  
 
- for row in items:
+ for row in table_list:
 
-    if inputx == row[0]:
+    if data == row[0]:
       
-      cursor_sql.execute(f"SELECT * FROM {table} WHERE {cloumn_one}=(?)",(inputx,))
-      items=cursor_sql.fetchall()
-      print(items)
+      cursor_sql.execute(f"SELECT * FROM {table} WHERE {cloumn_one}=(?)",(data,))
+      table_list=cursor_sql.fetchall()
+      print(table_list)
       break
     
-    elif inputx == row[1]:
+    elif data == row[1]:
     
-      cursor_sql.execute(f"SELECT * FROM {table} WHERE {cloumn_two}=(?)",(inputx,))
-      items=cursor_sql.fetchall()
-      print(items)
+      cursor_sql.execute(f"SELECT * FROM {table} WHERE {cloumn_two}=(?)",(data,))
+      table_list=cursor_sql.fetchall()
+      print(table_list)
       break
     
-    elif inputx == row[2]:
+    elif data == row[2]:
 
-      cursor_sql.execute(f"SELECT * FROM {table} WHERE {cloumn_three}=(?)",(inputx,))
-      items=cursor_sql.fetchall()
-      print(items)
+      cursor_sql.execute(f"SELECT * FROM {table} WHERE {cloumn_three}=(?)",(data,))
+      table_list=cursor_sql.fetchall()
+      print(table_list)
       break    
 
  sql_connect.commit()
@@ -83,21 +83,6 @@ def selection(inputx,db_name,table):
 
 
 
-
-# def create_table(db_name,table):
-
-#     sql_connect=sqlite3.connect(db_name)
-#     cursor_sql=sql_connect.cursor()
-#     cursor_sql.execute(f'''CREATE TABLE {table}
-#                         (category text,
-#                         product_id integer,
-#                         product_name text,
-#                         quantity integer,
-#                         price integer,
-#                         product_description text)''' )
-
-#     sql_connect.commit()
-#     sql_connect.close()
 
 
 

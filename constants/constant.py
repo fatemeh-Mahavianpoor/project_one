@@ -11,13 +11,13 @@ db_names={
 
 
 table_names={
-    "table1":"products",
-    "table2":"employers",
-    "table3":"storage",
-    "table5":"product_enter_date",
-    "table6":"user_date",
-    "table7":"product_exit_date",
-    "table8":"salary"
+    "product_table":"products",
+    "user_table":"employers",
+    "storage_table":"storage",
+    "product_enter_date_table":"product_enter_date",
+    "user_date_table":"user_date",
+    "product_exit_date":"product_exit_date",
+    "salary_table":"salary"
     
 }
 
@@ -26,7 +26,7 @@ def qustion_mark_generator(count):
   
     number_of_qustion_mark = ""
 
-    for i in range(count):
+    for number in range(count):
         number_of_qustion_mark += "?,"
 
     return number_of_qustion_mark[:-1]

@@ -9,7 +9,7 @@ from constants.constant import db_names,table_names
 
 time_module= datetime.datetime.now()
 
-timer=(time_module.strftime("%X"))
+time=(time_module.strftime("%X"))
 date=(time_module.strftime("%x"))
 
 
@@ -33,16 +33,16 @@ class Date:
                     sql_connect=sqlite3.connect(db_names["date"])
                     cursor_sql=sql_connect.cursor()
                     cursor_sql.execute("SELECT * FROM product_enter_date ")
-                    items=cursor_sql.fetchall()
+                    table_list=cursor_sql.fetchall()
 
-                    for row in items:
+                    for row in table_list:
                         if date == row[1] and row[0]==product_id :
                             print("You're product have already entered!") 
                             break
                     else:
-                        list=[id,date,item[2],timer]
+                        list=[id,date,item[2],time]
                         
-                        functions.add_many(list,db_names["date"],table_names["table5"],len(list))
+                        functions.add_many(list,db_names["date"],table_names["product_enter_date_table"],len(list))
                         break
 
     def exit_product(self):
@@ -62,16 +62,16 @@ class Date:
                     sql_connect=sqlite3.connect(db_names["date"])
                     cursor_sql=sql_connect.cursor()
                     cursor_sql.execute("SELECT * FROM product_enter_date ")
-                    items=cursor_sql.fetchall()
+                    table_list=cursor_sql.fetchall()
 
-                    for row in items:
+                    for row in table_list:
                         if date == row[1] and row[0]==product_id :
                             print("You're product have already entered!") 
                             break
                     else:
-                        list=[id,date,item[2],timer]
+                        list=[id,date,item[2],time]
                         
-                        functions.add_many(list,db_names["date"],table_names["table7"],len(list))
+                        functions.add_many(list,db_names["date"],table_names["product_exit_date"],len(list))
                         break
                                   
     def enter_user(self):
@@ -93,15 +93,15 @@ class Date:
                     sql_connect=sqlite3.connect(db_names["date"])
                     cursor_sql=sql_connect.cursor()
                     cursor_sql.execute("SELECT * FROM user_date ")
-                    items=cursor_sql.fetchall()
+                    table_list=cursor_sql.fetchall()
 
-                    for row in items:
+                    for row in table_list:
                         if  date == row[0] and row[1]==user_id:
                             print("You're employer have already entered!")
                             break
                     else:
-                        list=[date,id,item[2],item[3],timer,'']
-                        functions.add_many(list,db_names["date"],table_names["table6"],len(list))
+                        list=[date,id,item[2],item[3],time,'']
+                        functions.add_many(list,db_names["date"],table_names["user_date_table"],len(list))
                         break         
             
     def exit_user(self):
@@ -114,10 +114,10 @@ class Date:
         cursor_sql=sql_connect.cursor()
         cursor_sql.execute("SELECT * FROM user_date ")
         cursor_sql.fetchall()         
-        time=timer
-        day=date
-        li=(time,day,id)
-        update(li,db_names["date"],table_names["table6"])
+        time_data=time_data
+        date_data=date
+        list=(time_data,date_data,id)
+        update(list,db_names["date"],table_names["user_date_table"])
                     
 
 
@@ -135,7 +135,7 @@ def update(list,db,table):
 
                         
 # l=[(1,),(2,),(3,)]                            
-# functions.delete_items(l,db_names["date"],table_names["table6"])                        
+# functions.delete_items(l,db_names["date"],table_names["user_date_table"])                        
 
                                  
 

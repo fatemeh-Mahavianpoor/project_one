@@ -16,7 +16,7 @@ from constants.constant import db_names,table_names
 
 
 
-class storage:
+class Storage:
      
 
      def add_storage(self):
@@ -27,22 +27,20 @@ class storage:
 
 
       print("Enter the following storage information to add")  
-      sn=input('Enter your storage_name:')
-      storage_name=str(sn)
-      wp=input('Enter the products in warehouse:')
-      warehouse_products=str(wp)
+      storage_name=input('Enter your storage_name:')
+      warehouse_products=input('Enter the products in warehouse:')      
       location=input('Enter location:')
-      x=input('Enter  storage_space:')
-      storage_space=(str(x) + "m")
+      size=input('Enter  storage_space:')
+      storage_space=(str(size) + "m")
     
       
       
       cursor_sql.execute("SELECT * FROM storage ")
-      items=cursor_sql.fetchall() 
+      table_list=cursor_sql.fetchall() 
 
       is_product_avelible=False
   
-      for item in items:
+      for item in table_list:
             if item[1]==storage_name:
               is_product_avelible=True
               break
@@ -52,33 +50,33 @@ class storage:
             
       else:
             list=[storage_name,warehouse_products,location,storage_space]
-            functions.add_many(list,db_names["storage"],table_names["table3"],len(list))
+            functions.add_many(list,db_names["storage"],table_names["storage_table"],len(list))
 
 
 
      def show_storage_list(self):
     
                 
-                show_all_user=input("Do you want to see the whole list of storage?")
-                if show_all_user.capitalize()=='Y':
-                  functions.show_all(db_names["storage"],table_names["table3"])
-                elif show_all_user.capitalize()=='N':
+                show_all_storage=input("Do you want to see the whole list of storage?")
+                if show_all_storage.capitalize()=='Y':
+                  functions.show_all(db_names["storage"],table_names["storage_table"])
+                elif show_all_storage.capitalize()=='N':
                     filter_item=input("What filter do you want to search based on? name |  warehouse_products | location : ")
                     
                     if filter_item.capitalize()=='Name':
-                         nam=input('Enter your Name:')
-                         n=nam.capitalize()
-                         functions.selection(n,db_names["storage"],table_names["table3"])
+                         name=input('Enter your Name:')
+                         storage_name=name.capitalize()
+                         functions.selection(storage_name,db_names["storage"],table_names["storage_table"])
                     
                     elif filter_item.capitalize()=='Location':
                          location_in=input('Enter your location:')
-                         loc=location_in.capitalize()
-                         functions.selection(loc,db_names["storage"],table_names["table3"])
+                         storage_location=location_in.capitalize()
+                         functions.selection(storage_location,db_names["storage"],table_names["storage_table"])
                    
                     elif filter_item.capitalize()=='Warehouse_products':
                          product_name=input('Enter the name of products:')
-                         pro_name=product_name.capitalize()
-                         functions.selection(pro_name,db_names["storage"],table_names["table3"])
+                         warehouse_products_name=product_name.capitalize()
+                         functions.selection(warehouse_products_name,db_names["storage"],table_names["storage_table"])
                     
 
   

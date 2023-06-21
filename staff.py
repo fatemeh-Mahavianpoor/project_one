@@ -6,7 +6,7 @@ from constants.constant import db_names,table_names
 
 # sql_connect=sqlite3.connect(db_names["staff"])
 # cursor_sql=sql_connect.cursor()
-# cursor_sql.execute(f'''CREATE TABLE {table_names["table8"]}
+# cursor_sql.execute(f'''CREATE TABLE {table_names["salary_table"]}
                     
 #                     (month text,
 #                      employer_id integer,
@@ -18,7 +18,7 @@ from constants.constant import db_names,table_names
 
 # sql_connect=sqlite3.connect(db_names["staff"])
 # cursor_sql=sql_connect.cursor()
-# cursor_sql.execute(f'''DROP TABLE {table_names["table8"]}''')
+# cursor_sql.execute(f'''DROP TABLE {table_names["salary_table"]}''')
 
 # sql_connect.commit()
 # sql_connect.close()
@@ -37,11 +37,11 @@ def calculate_salary():
       user_id=input('id: ')
       id=int(user_id)
 
-      person_day=0
+      number_of_working_days=0
 
       for row in items:
          if id == row[1]:
-            person_day+=1
+            number_of_working_days+=1
       
       
       sql_connect=sqlite3.connect(db_names["user"])
@@ -49,24 +49,24 @@ def calculate_salary():
       cursor_sql.execute(f"SELECT * FROM employers WHERE employer_id={id} ")
       table=cursor_sql.fetchall()
 
-      for num in table:
+      for table_list in table:
 
-            daily_salary=num[6]
-            present_day=person_day
+            daily_salary=table_list[6]
+            present_day=number_of_working_days
             salary=daily_salary * present_day
 
       sql_connect=sqlite3.connect(db_names["staff"])
       cursor_sql=sql_connect.cursor()
       cursor_sql.execute(F"SELECT * FROM salary  WHERE employer_id={id}")
-      item=cursor_sql.fetchall()
+      table_list=cursor_sql.fetchall()
 
-      for row in item:
+      for row in table_list:
      
             if monthly == row[0]:
                   break
       else:
-            li=[monthly,id,num[5],salary]
-            functions.add_many(li,db_names["staff"],table_names["table8"],len(li))
+            list=[monthly,id,table_list[5],salary]
+            functions.add_many(list,db_names["staff"],table_names["salary_table"],len(list))
 
               
 
