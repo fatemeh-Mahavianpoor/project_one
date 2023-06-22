@@ -1,4 +1,5 @@
 
+# project database file names
 db_names={
     "product":"product_info.db",
     "user":"user_info.db",
@@ -9,7 +10,7 @@ db_names={
 
 
 
-
+# project database table names
 table_names={
     "product_table":"products",
     "user_table":"employers",
@@ -22,14 +23,6 @@ table_names={
 }
 
 
-def qustion_mark_generator(count):
-  
-    number_of_qustion_mark = ""
-
-    for number in range(count):
-        number_of_qustion_mark += "?,"
-
-    return number_of_qustion_mark[:-1]
     
 
 

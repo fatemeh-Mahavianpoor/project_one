@@ -25,7 +25,7 @@ class Admin:
     else:
       print("your username is false")  
 
-
+# acsses to product section if logged in
  def acsses_product(cls):
    
   if cls. log_in: 
@@ -42,6 +42,7 @@ class Admin:
   else:
     print("You're not logged in!") 
 
+# acsses to user section if logged in
  def acsses_user(cls):
    
    if cls.log_in==True:
@@ -58,7 +59,7 @@ class Admin:
    else:
     print("You're not logged in!")
  
- 
+# acsses to storage section if logged in 
  def acsses_storage(cls):
    
    if cls.log_in==True:

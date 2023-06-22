@@ -1,7 +1,7 @@
 import sqlite3
 import functions
 from constants.constant import db_names,table_names
-import staff
+
 
 # sql_connect=sqlite3.connect(db_names["employer"])
 # cursor_sql=sql_connect.cursor()
@@ -23,7 +23,7 @@ import staff
 
 class User_info:
      
-
+     # add user_info to table
      def add_user(self):
       
       sql_connect=sqlite3.connect(db_names["user"])
@@ -58,12 +58,15 @@ class User_info:
       else:
             list=[job_position,user_id,first_name,last_name,role,personal_code,salary]
             functions.add_many(list,db_names["user"],table_names["user_table"],len(list))
-
+     
+     # showing the user_info from table
      def show_user_list(self):       
-            
+               
                show_all_user=input("Do you want to see the whole list of users?")
+               
                if show_all_user.capitalize()=='Y':
                 functions.show_all(db_names["user"],table_names["user_table"])
+               
                elif show_all_user.capitalize()=='N':
                     filter_item=input("What filter do you want to search based on? job position | id | name: ")
                     
@@ -76,6 +79,7 @@ class User_info:
                          id=input('Enter user_id:')
                          id_number=int(id)
                          functions.selection(id_number,db_names["user"],table_names["user_table"])
+                    
                     elif filter_item.capitalize()=='Name':
                          name=input('Enter your user name:')
                          product_name=name.capitalize()

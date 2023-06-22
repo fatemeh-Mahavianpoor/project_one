@@ -18,7 +18,7 @@ from constants.constant import db_names,table_names
 
 class Storage:
      
-
+     # add storage info to table
      def add_storage(self):
       
       sql_connect=sqlite3.connect(db_names["storage"])
@@ -53,14 +53,15 @@ class Storage:
             functions.add_many(list,db_names["storage"],table_names["storage_table"],len(list))
 
 
-
+     # showing the list of storage_info from table 
      def show_storage_list(self):
     
-                
-                show_all_storage=input("Do you want to see the whole list of storage?")
-                if show_all_storage.capitalize()=='Y':
+               show_all_storage=input("Do you want to see the whole list of storage?")
+               
+               if show_all_storage.capitalize()=='Y':
                   functions.show_all(db_names["storage"],table_names["storage_table"])
-                elif show_all_storage.capitalize()=='N':
+               
+               elif show_all_storage.capitalize()=='N':
                     filter_item=input("What filter do you want to search based on? name |  warehouse_products | location : ")
                     
                     if filter_item.capitalize()=='Name':
