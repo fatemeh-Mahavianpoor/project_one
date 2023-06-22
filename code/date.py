@@ -5,7 +5,10 @@ from constant import db_names,table_names
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 76f257c2aeb81a6939b3ea62fd0ea7e3cdd354cf
 # show the current date and time
 time_module= datetime.datetime.now()
 

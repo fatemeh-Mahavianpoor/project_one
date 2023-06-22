@@ -35,7 +35,11 @@ class Storage:
     
       
       
+<<<<<<< HEAD
       cursor_sql.execute(f"SELECT * FROM {table_names['storage_table']} ")
+=======
+      cursor_sql.execute("SELECT * FROM storage ")
+>>>>>>> 76f257c2aeb81a6939b3ea62fd0ea7e3cdd354cf
       table_list=cursor_sql.fetchall() 
 
       is_product_avelible=False
@@ -83,8 +87,13 @@ class Storage:
   
 
 
+<<<<<<< HEAD
 p1=Storage()
 p1.add_storage()
+=======
+# p1=storage()
+# p1.show_storage_list()
+>>>>>>> 76f257c2aeb81a6939b3ea62fd0ea7e3cdd354cf
 
 
 

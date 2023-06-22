@@ -1,6 +1,10 @@
 import sqlite3
 import functions
+<<<<<<< HEAD
 from constant import db_names,table_names
+=======
+from constants.constant import db_names,table_names
+>>>>>>> 76f257c2aeb81a6939b3ea62fd0ea7e3cdd354cf
 
 
 # sql_connect=sqlite3.connect(db_names["employer"])
